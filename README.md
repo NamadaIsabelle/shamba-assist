@@ -96,6 +96,26 @@ Visit `http://localhost:3000`
 ---
 
 ## Status
+## Business model
+
+ShambaAssist uses a hybrid monetisation model suited to the Kenyan agricultural context.
+
+**Agronomist subscription**
+Agronomists pay a monthly platform fee to manage their assigned farmers on ShambaAssist. This covers dashboard access, sensor management, AI diagnosis reviews, and farmer onboarding tools. Pricing scales with the number of farmers managed.
+
+**Per-visit payments via M-Pesa**
+When a farmer requests a physical farm visit, the agronomist sets their visit fee inside the app. The farmer pays via M-Pesa before or after the visit. ShambaAssist takes a small platform commission per transaction.
+
+**Why this works for Kenya**
+- Farmers access AI diagnosis, sensor dashboards and SMS alerts for free — no upfront cost, no barrier to entry
+- The free tier builds trust before any money changes hands
+- M-Pesa is the payment rail — familiar, frictionless, works without a smartphone or bank account
+- Agronomists are incentivised to onboard more farmers since their subscription value grows with their portfolio
+
+**Future considerations**
+- County government and NGO licensing for publicly funded agronomist programmes
+- Localised pricing tiers for different regions
+- Premium farmer tier for larger commercial smallholder farms
 
 This project is in active development. Contributions and feedback are welcome.
 
