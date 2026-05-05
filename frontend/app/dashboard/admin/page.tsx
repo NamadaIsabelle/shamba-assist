@@ -20,6 +20,7 @@ const navItems = [
 ];
 
 export default function AdminDashboard() {
+  const [collapsed, setCollapsed] = useState(false);
   const [activeNav, setActiveNav] = useState("overview");
   const [visitStatuses, setVisitStatuses] = useState<Record<string, "pending" | "accepted" | "declined">>(
     Object.fromEntries(farmers.filter(f => f.requestedVisit).map(f => [f.name, "pending"]))
@@ -71,26 +72,36 @@ export default function AdminDashboard() {
       `}</style>
 
       {/* Sidebar */}
-      <aside style={{ width: "220px", minHeight: "100vh", borderRight: "0.5px solid rgba(255,255,255,0.08)", padding: "1.5rem 1rem", display: "flex", flexDirection: "column", gap: "0.25rem", flexShrink: 0 }}>
-        <div style={{ fontSize: "1.1rem", padding: "0 0.5rem", marginBottom: "1.5rem", letterSpacing: "-0.02em" }}>
-          Shamba<span style={{ color: "#7ec850" }}>Ass<strong style={{ color: "#7ec850" }}>AI</strong>st</span>
-        </div>
-        {navItems.map(item => (
-          <div key={item.id} className={`nav-item ${activeNav === item.id ? "active" : ""}`} onClick={() => setActiveNav(item.id)}>
-            <span style={{ fontSize: "14px", width: "16px", textAlign: "center" }}>{item.icon}</span>
-            {item.label}
-            {item.badge && (
-              <span style={{ background: "rgba(224,85,85,0.2)", color: "#e05555", fontSize: "10px", padding: "1px 6px", borderRadius: "100px", marginLeft: "auto" }}>
-                {item.badge}
-              </span>
-            )}
-          </div>
-        ))}
-        <div style={{ marginTop: "auto", padding: "0.5rem 0.75rem", fontSize: "0.78rem", color: "rgba(232,240,225,0.3)" }}>
-          Dr. Achieng O.<br />
-          <span style={{ color: "rgba(232,240,225,0.2)", fontSize: "0.72rem" }}>Agronomist</span>
-        </div>
-      </aside>
+      
+      <aside style={{ width: collapsed ? "60px" : "220px", minHeight: "100vh", borderRight: "0.5px solid rgba(255,255,255,0.08)", padding: "1.5rem 0.75rem", display: "flex", flexDirection: "column", gap: "0.25rem", flexShrink: 0, transition: "width 0.25s ease", overflow: "hidden" }}>
+  <div style={{ display: "flex", alignItems: "center", justifyContent: collapsed ? "center" : "space-between", padding: "0 0.25rem", marginBottom: "1.5rem" }}>
+    {!collapsed && (
+      <div style={{ fontSize: "1.1rem", letterSpacing: "-0.02em", whiteSpace: "nowrap" }}>
+        Shamba<span style={{ color: "#7ec850" }}>Ass<strong style={{ color: "#7ec850" }}>AI</strong>st</span>
+      </div>
+    )}
+    <button onClick={() => setCollapsed(!collapsed)} style={{ background: "rgba(255,255,255,0.05)", border: "0.5px solid rgba(255,255,255,0.1)", borderRadius: "8px", color: "rgba(232,240,225,0.4)", cursor: "pointer", transition: "all 0.2s", display: "flex", alignItems: "center", justifyContent: "center", padding: "0.4rem", fontSize: "0.85rem" }}>
+      {collapsed ? "→" : "←"}
+    </button>
+  </div>
+  {navItems.map(item => (
+    <div key={item.id} className={`nav-item ${activeNav === item.id ? "active" : ""}`} onClick={() => setActiveNav(item.id)} style={{ justifyContent: collapsed ? "center" : "flex-start" }} title={collapsed ? item.label : ""}>
+      <span style={{ fontSize: "14px", width: "16px", textAlign: "center", flexShrink: 0 }}>{item.icon}</span>
+      {!collapsed && item.label}
+      {!collapsed && item.badge && (
+        <span style={{ background: "rgba(224,85,85,0.2)", color: "#e05555", fontSize: "10px", padding: "1px 6px", borderRadius: "100px", marginLeft: "auto" }}>
+          {item.badge}
+        </span>
+      )}
+    </div>
+  ))}
+  {!collapsed && (
+    <div style={{ marginTop: "auto", padding: "0.5rem 0.75rem", fontSize: "0.78rem", color: "rgba(232,240,225,0.3)" }}>
+      Dr. Achieng O.<br />
+      <span style={{ color: "rgba(232,240,225,0.2)", fontSize: "0.72rem" }}>Agronomist</span>
+    </div>
+  )}
+</aside>
 
       {/* Main */}
       <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
